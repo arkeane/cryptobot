@@ -37,6 +37,7 @@ def reminder(tick, direction, alertvalue, bot, update, context):
 def reminderth(tick, direction, alertvalue, bot, update, context):
     reminder_thread = threading.Thread(target=reminder, args=(tick, direction, alertvalue, bot, update, context))
     reminder_thread.start()
+    context.bot.send_message(update.message.chat_id, text="REMINDER SET", parse_mode=telegram.ParseMode.MARKDOWN)
 
 def convert(value, tick, direction):
     price = get_price(tick)
