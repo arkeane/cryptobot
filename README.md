@@ -1,6 +1,7 @@
 # cryptobot
 
 Get crypto prices, set reminders and much more...
+Based on CoinbasePro prices and API
 
 ## Run the bot yourself
 
