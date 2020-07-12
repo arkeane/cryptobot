@@ -2,9 +2,10 @@
 Get crypto prices, set reminders and much more...
 
 ## Run the bot yourself
-1) clone the repository
+1) clone the repository and cd inside
 ```
-git clone https://github.com/arkeane/cryptobot.git 
+git clone https://github.com/arkeane/cryptobot.git
+cd crytptobot
 ```
 
 2) create a file named bot_token.txt inside the repository folder and paste there your Telegram Token
