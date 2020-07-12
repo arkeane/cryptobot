@@ -8,7 +8,7 @@ git clone https://github.com/arkeane/cryptobot.git
 cd crytptobot
 ```
 
-2) create a file named bot_token.txt inside the repository folder and paste there your Telegram token.
+2) create a file named bot_token.txt inside the repository folder and paste there your Telegram Bot token (obtain it from BotFather).
 ```
 touch bot_token.txt
 echo "TOKEN" > bot_token.txt
