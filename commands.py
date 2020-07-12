@@ -1,6 +1,9 @@
 import telegram
-from telegram.ext.dispatcher import run_async
+from telegram.ext.dispatcher import run_async 
+from telegram.ext import ConversationHandler
 import utils
+from bot import FIRST, SECOND
+
 # =====================================
 # Commands
 # =====================================
@@ -8,7 +11,9 @@ import utils
 # btcprice - BTC-EUR price
 # ethprice - ETH-EUR price
 # price - ex. /price BTC-USD
+# convert - ex /convert BTC EUR
 # alertme - ex. /alertme BTC-EUR > 8300
+# help - command list
 
 welcome_text = """
 ₿ WELCOME TO CRYPTOBOT ₿
@@ -17,14 +22,30 @@ Commands:
  /btcprice - BTC-EUR price
  /ethprice - ETH-EUR price
  /price - ex. /price BTC-USD
+ /convert - ex /convert BTC EUR
  /alertme - ex. /alertme BTC-EUR > 8300
+ /help - command list
 
 BOT developed by Ludovico Pestarino©"""
+
+help_text = """
+HELP:
+ /btcprice - BTC-EUR price
+ /ethprice - ETH-EUR price
+ /price - ex. /price BTC-USD
+ /convert - ex /convert BTC EUR
+ /alertme - ex. /alertme BTC-EUR > 8300
+ /help - command list"""
 
 @run_async
 def cmd_start(update, context):
     context.bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
     context.bot.send_message(update.message.chat_id, text=welcome_text, parse_mode=telegram.ParseMode.MARKDOWN)
+
+@run_async
+def cmd_help(update, context):
+    context.bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
+    context.bot.send_message(update.message.chat_id, text=help_text, parse_mode=telegram.ParseMode.MARKDOWN)
 
 @run_async
 def cmd_btcprice(update, context):
@@ -92,6 +113,12 @@ def cmd_convert(update, context):
         text=(msg),
         reply_markup=reply_markup,
         parse_mode=telegram.ParseMode.MARKDOWN)
+    return FIRST
+
+@run_async
+def cmd_cancel(update, context):
+    update.message.reply_text('canceled')
+    return ConversationHandler.END
 
 # =====================================
 # Callbacks
@@ -100,22 +127,32 @@ def cmd_convert(update, context):
 @run_async
 def cb_first_to_second(update, context):
     chat_data = context.chat_data
-    direction = 1
-    tick = str(chat_data['first'])+"-"+str(chat_data['second'])
-    value = 1
-    convalue = utils.convert(value, tick, direction)
-    context.bot.send_message(update.callback_query.message.chat_id, text=convalue, parse_mode=telegram.ParseMode.MARKDOWN)
-    pass
+    msg = str(chat_data['first'])+" Value:"
+    chat_data['direction'] = 1
+    context.bot.send_message(update.callback_query.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
+    return SECOND
 
 @run_async
 def cb_second_to_first(update, context):
     chat_data = context.chat_data
-    direction = 2
+    msg = str(chat_data['second'])+" Value:"
+    chat_data['direction'] = 2
+    context.bot.send_message(update.callback_query.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
+    return SECOND
+
+@run_async
+def cb_get_value(update, context):
+    chat_data = context.chat_data
+    chat_data['value'] = update.message.text
+    value = chat_data['value']
+    direction = chat_data['direction'] 
     tick = str(chat_data['first'])+"-"+str(chat_data['second'])
-    value = 1
-    convalue = utils.convert(value, tick, direction)
-    context.bot.send_message(update.callback_query.message.chat_id, text=convalue, parse_mode=telegram.ParseMode.MARKDOWN)
-    pass
+    if direction == 1:
+        convalue = str(chat_data['second'])+": "+str(utils.convert(value, tick, direction))
+    elif direction == 2:
+        convalue = str(chat_data['first'])+": "+str(utils.convert(value, tick, direction))
+    context.bot.send_message(update.message.chat_id, text=convalue, parse_mode=telegram.ParseMode.MARKDOWN)
+    return ConversationHandler.END
 
 # =====================================
 # Errors

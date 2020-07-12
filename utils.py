@@ -4,6 +4,7 @@ import threading
 import commands
 import telegram
 from telegram.ext.dispatcher import run_async
+from telegram.ext import ConversationHandler, MessageHandler, Filters
 
 def get_price(tick):
     public_client = cbp.PublicClient()
@@ -40,11 +41,17 @@ def reminderth(tick, direction, alertvalue, bot, update, context):
     context.bot.send_message(update.message.chat_id, text="REMINDER SET", parse_mode=telegram.ParseMode.MARKDOWN)
 
 def convert(value, tick, direction):
-    price = get_price(tick)
+    price = float(get_price(tick))
+    value = float(value)
     if direction == 1:
         convalue = value*price
         return convalue
     elif direction == 2:
         convalue = value/price
         return convalue
-    
+        
+def value_conversion(update, context):
+    direction = 1
+    chat_data = context.chat_data
+    tick = str(chat_data['first'])+"-"+str(chat_data['second'])
+    value = chat_data['value']
