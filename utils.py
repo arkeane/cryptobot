@@ -37,3 +37,13 @@ def reminder(tick, direction, alertvalue, bot, update, context):
 def reminderth(tick, direction, alertvalue, bot, update, context):
     reminder_thread = threading.Thread(target=reminder, args=(tick, direction, alertvalue, bot, update, context))
     reminder_thread.start()
+
+def convert(value, tick, direction):
+    price = get_price(tick)
+    if direction == 1:
+        convalue = value*price
+        return convalue
+    elif direction == 2:
+        convalue = value/price
+        return convalue
+    
