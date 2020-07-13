@@ -3,6 +3,8 @@
 Get crypto prices, set reminders and much more...
 Based on CoinbasePro API
 
+### Use it at https://t.me/lcrypto_bot or @lcrypto_bot
+
 ## Run the bot yourself
 
 1. clone the repository and cd inside it.
