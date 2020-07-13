@@ -3,8 +3,6 @@ import time
 import threading
 import commands
 import telegram
-from telegram.ext.dispatcher import run_async
-from telegram.ext import ConversationHandler, MessageHandler, Filters
 
 def get_price(tick):
     public_client = cbp.PublicClient()
