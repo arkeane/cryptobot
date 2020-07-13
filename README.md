@@ -1,5 +1,7 @@
 # cryptobot
 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JD8N2KRXTX37Y&source=url)
+
 Get crypto prices, set reminders and much more...
 Based on CoinbasePro API
 
