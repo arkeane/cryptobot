@@ -3,49 +3,21 @@ from telegram.ext.dispatcher import run_async
 from telegram.ext import ConversationHandler
 import utils
 from bot import FIRST, SECOND
+import text
 
 # =====================================
 # Commands
 # =====================================
-# BotFatherList:
-# btcprice - BTC-EUR price
-# ethprice - ETH-EUR price
-# price - ex. /price BTC-USD
-# convert - ex /convert BTC EUR
-# alertme - ex. /alertme BTC-EUR > 8300
-# help - command list
-
-welcome_text = """
-₿ WELCOME TO CRYPTOBOT ₿
-
-Commands:
- /btcprice - BTC-EUR price
- /ethprice - ETH-EUR price
- /price - ex. /price BTC-USD
- /convert - ex /convert BTC EUR
- /alertme - ex. /alertme BTC-EUR > 8300
- /help - command list
-
-BOT developed by Ludovico Pestarino©"""
-
-help_text = """
-HELP:
- /btcprice - BTC-EUR price
- /ethprice - ETH-EUR price
- /price - ex. /price BTC-USD
- /convert - ex /convert BTC EUR
- /alertme - ex. /alertme BTC-EUR > 8300
- /help - command list"""
 
 @run_async
 def cmd_start(update, context):
     context.bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
-    context.bot.send_message(update.message.chat_id, text=welcome_text, parse_mode=telegram.ParseMode.MARKDOWN)
+    context.bot.send_message(update.message.chat_id, text=text.welcome_text, parse_mode=telegram.ParseMode.MARKDOWN)
 
 @run_async
 def cmd_help(update, context):
     context.bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
-    context.bot.send_message(update.message.chat_id, text=help_text, parse_mode=telegram.ParseMode.MARKDOWN)
+    context.bot.send_message(update.message.chat_id, text=text.help_text, parse_mode=telegram.ParseMode.MARKDOWN)
 
 @run_async
 def cmd_btcprice(update, context):
