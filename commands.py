@@ -3,7 +3,13 @@ from telegram.ext.dispatcher import run_async
 from telegram.ext import ConversationHandler
 import utils
 from bot import FIRST, SECOND
-import text
+import json
+
+with open('text.json') as json_file:
+        texts = json.loads(json_file.read())
+        for p in texts['text']:
+            help_text = (p['help_text'])
+            welcome_text = (p['welcome_text'])
 
 # =====================================
 # Commands
@@ -12,12 +18,31 @@ import text
 @run_async
 def cmd_start(update, context):
     context.bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
-    context.bot.send_message(update.message.chat_id, text=text.welcome_text, parse_mode=telegram.ParseMode.MARKDOWN)
+    context.bot.send_message(update.message.chat_id, text=welcome_text, parse_mode=telegram.ParseMode.MARKDOWN)
 
 @run_async
 def cmd_help(update, context):
     context.bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
-    context.bot.send_message(update.message.chat_id, text=text.help_text, parse_mode=telegram.ParseMode.MARKDOWN)
+    if len(context.args) != 1:
+        context.bot.send_message(update.message.chat_id, text=help_text, parse_mode=telegram.ParseMode.MARKDOWN)
+    elif context.args[0] == "price":
+        with open('text.json') as json_file:
+            data = json.loads(json_file.read())
+            for p in data['help']:
+                msg = p['/price']
+            context.bot.send_message(update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
+    elif context.args[0] == "alertme":
+       with open('text.json') as json_file:
+           data = json.loads(json_file.read())
+           for p in data['help']:
+               msg = p['/alertme']
+           context.bot.send_message(update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
+    elif context.args[0] == "convert":
+       with open('text.json') as json_file:
+           data = json.loads(json_file.read())
+           for p in data['help']:
+               msg = p['/convert']
+           context.bot.send_message(update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
 
 @run_async
 def cmd_btcprice(update, context):
