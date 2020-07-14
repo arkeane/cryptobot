@@ -25,24 +25,32 @@ def cmd_help(update, context):
     context.bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
     if len(context.args) != 1:
         context.bot.send_message(update.message.chat_id, text=help_text, parse_mode=telegram.ParseMode.MARKDOWN)
+        return
     elif context.args[0] == "price":
         with open('text.json') as json_file:
             data = json.loads(json_file.read())
             for p in data['help']:
                 msg = p['/price']
             context.bot.send_message(update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
+            return
     elif context.args[0] == "alertme":
        with open('text.json') as json_file:
            data = json.loads(json_file.read())
            for p in data['help']:
                msg = p['/alertme']
            context.bot.send_message(update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
+           return
     elif context.args[0] == "convert":
        with open('text.json') as json_file:
            data = json.loads(json_file.read())
            for p in data['help']:
                msg = p['/convert']
            context.bot.send_message(update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
+           return
+    else:
+        error_args_help(context.bot, update)
+        return
+
 
 @run_async
 def cmd_btcprice(update, context):
@@ -50,6 +58,7 @@ def cmd_btcprice(update, context):
     tick = 'BTC-EUR'
     price = str(tick)+": "+str(utils.get_price(tick))+'€'
     context.bot.send_message(update.message.chat_id, text=price, parse_mode=telegram.ParseMode.MARKDOWN)
+    return
 
 @run_async
 def cmd_ethprice(update, context):
@@ -57,6 +66,7 @@ def cmd_ethprice(update, context):
     tick = 'ETH-EUR'
     price = str(tick)+": "+str(utils.get_price(tick))+'€'
     context.bot.send_message(update.message.chat_id, text=price, parse_mode=telegram.ParseMode.MARKDOWN)
+    return
 
 @run_async
 def cmd_price(update, context):
@@ -69,6 +79,7 @@ def cmd_price(update, context):
     tick = context.args[0]
     price = str(tick)+": "+str(utils.get_price(tick))
     context.bot.send_message(update.message.chat_id, text=price, parse_mode=telegram.ParseMode.MARKDOWN)
+    return
 
 @run_async
 def cmd_alertme(update, context):
@@ -86,6 +97,7 @@ def cmd_alertme(update, context):
     chat_data['direction'] = context.args[1] 
     chat_data['alertvalue'] = context.args[2]
     utils.reminderth(chat_data['tick'], chat_data['direction'], chat_data['alertvalue'], context.bot, update, context)
+    return
 
 @run_async
 def cmd_convert(update, context):
@@ -158,18 +170,28 @@ def error_args_price(bot, update):
     bot.sendMessage(chat_id = update.message.chat_id, 
     text = ("ERROR: Must provide an argument -- try: /price BTC-USD"),
     parse_mode = telegram.ParseMode.MARKDOWN)
+    return
 
 def error_args_reminder(bot, update):
     bot.sendMessage(chat_id = update.message.chat_id, 
     text = ("ERROR: Not Enough Arguments -- try: /alertme BTC-EUR > 8300"),
     parse_mode = telegram.ParseMode.MARKDOWN)
+    return
 
 def error_format(bot, update):
     bot.sendMessage(chat_id = update.message.chat_id,
     text = ("ERROR: Price is not a number -- try: /alertme BTC-EUR > 8300"),
     parse_mode = telegram.ParseMode.MARKDOWN)
+    return
 
 def error_args_convert(bot, update):
     bot.sendMessage(chat_id = update.message.chat_id, 
     text = ("ERROR: Must provide 2 arguments -- try: /convert BTC EUR "),
     parse_mode = telegram.ParseMode.MARKDOWN)
+    return
+
+def error_args_help(bot, update):
+    bot.sendMessage(chat_id = update.message.chat_id, 
+    text = ("ERROR: Incorrect argument -- try: /help price "),
+    parse_mode = telegram.ParseMode.MARKDOWN)
+    return
