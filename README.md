@@ -23,7 +23,8 @@ Based on CoinbasePro API
     echo "TOKEN" > bot_token.txt
     ````
 
-3. 
+3.  Run the Bot
+
     1. Install the required software and run the bot.
 
         ```bash
