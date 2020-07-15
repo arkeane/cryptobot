@@ -23,9 +23,16 @@ Based on CoinbasePro API
     echo "TOKEN" > bot_token.txt
     ````
 
-3. Install the required software and run the bot.
+3. 
+    1. Install the required software and run the bot.
 
-    ```bash
-    pip install -r requirements.txt
-    python bot.py
-    ```
+        ```bash
+        pip install -r requirements.txt
+        python bot.py
+        ```
+    2. Use Docker 
+    
+        ```bash
+        docker build -t cryptobot .
+        docker run -dit --restart unless-stopped --name cryptobot_telegram cryptobot
+        ```
