@@ -3,7 +3,7 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LZDKH4PL5Z3XN&source=url)
 
 Get crypto prices, set reminders and much more...
-Based on CoinbasePro API
+TelegramBOT Based on CoinbasePro API 
 
 ### Use it at https://t.me/lcrypto_bot or @lcrypto_bot
 
