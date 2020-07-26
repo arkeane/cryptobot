@@ -5,7 +5,7 @@
 Get crypto prices, set reminders and much more...
 TelegramBOT Based on CoinbasePro API 
 
-### Use it at https://t.me/lcrypto_bot or @lcrypto_bot
+## Use it at [BOT](https://t.me/lcrypto_bot) or @lcrypto_bot
 
 ## Run the bot yourself
 
