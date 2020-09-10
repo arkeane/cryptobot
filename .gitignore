@@ -1,3 +1,4 @@
 __pycache__/
+.venv/
 bot_token.txt
 cryptovscode.code-workspace
