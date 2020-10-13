@@ -4,6 +4,9 @@ from telegram.ext import ConversationHandler
 import utils
 from bot import FIRST, SECOND
 import json
+import os
+
+textjson = (os.path.dirname(os.path.realpath(__file__)) + '/text.json')
 
 with open('/src/text.json') as json_file:
         texts = json.loads(json_file.read())
@@ -15,33 +18,31 @@ with open('/src/text.json') as json_file:
 # Commands
 # =====================================
 
-@run_async
 def cmd_start(update, context):
     context.bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
     context.bot.send_message(update.message.chat_id, text=welcome_text, parse_mode=telegram.ParseMode.MARKDOWN)
 
-@run_async
 def cmd_help(update, context):
     context.bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
     if len(context.args) != 1:
         context.bot.send_message(update.message.chat_id, text=help_text, parse_mode=telegram.ParseMode.MARKDOWN)
         return
     elif context.args[0] == "price":
-        with open('/src/text.json') as json_file:
+        with open(textjson) as json_file:
             data = json.loads(json_file.read())
             for p in data['help']:
                 msg = p['/price']
             context.bot.send_message(update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
             return
     elif context.args[0] == "alertme":
-       with open('/src/text.json') as json_file:
+       with open(textjson) as json_file:
            data = json.loads(json_file.read())
            for p in data['help']:
                msg = p['/alertme']
            context.bot.send_message(update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
            return
     elif context.args[0] == "convert":
-       with open('src/text.json') as json_file:
+       with open(textjson) as json_file:
            data = json.loads(json_file.read())
            for p in data['help']:
                msg = p['/convert']
@@ -52,7 +53,6 @@ def cmd_help(update, context):
         return
 
 
-@run_async
 def cmd_btcprice(update, context):
     context.bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
     tick = 'BTC-EUR'
@@ -60,7 +60,6 @@ def cmd_btcprice(update, context):
     context.bot.send_message(update.message.chat_id, text=price, parse_mode=telegram.ParseMode.MARKDOWN)
     return
 
-@run_async
 def cmd_ethprice(update, context):
     context.bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
     tick = 'ETH-EUR'
@@ -68,7 +67,6 @@ def cmd_ethprice(update, context):
     context.bot.send_message(update.message.chat_id, text=price, parse_mode=telegram.ParseMode.MARKDOWN)
     return
 
-@run_async
 def cmd_price(update, context):
     context.bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
 
@@ -81,7 +79,6 @@ def cmd_price(update, context):
     context.bot.send_message(update.message.chat_id, text=price, parse_mode=telegram.ParseMode.MARKDOWN)
     return
 
-@run_async
 def cmd_alertme(update, context):
     chat_data = context.chat_data
 
@@ -99,7 +96,6 @@ def cmd_alertme(update, context):
     utils.reminderth(chat_data['tick'], chat_data['direction'], chat_data['alertvalue'], context.bot, update, context)
     return
 
-@run_async
 def cmd_convert(update, context):
     context.bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
     chat_data = context.chat_data
@@ -124,7 +120,6 @@ def cmd_convert(update, context):
         parse_mode=telegram.ParseMode.MARKDOWN)
     return FIRST
 
-@run_async
 def cmd_cancel(update, context):
     update.message.reply_text('canceled')
     return ConversationHandler.END
@@ -133,7 +128,6 @@ def cmd_cancel(update, context):
 # Callbacks
 # =====================================
 
-@run_async
 def cb_first_to_second(update, context):
     chat_data = context.chat_data
     msg = str(chat_data['first'])+" Value:"
@@ -141,7 +135,6 @@ def cb_first_to_second(update, context):
     context.bot.send_message(update.callback_query.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
     return SECOND
 
-@run_async
 def cb_second_to_first(update, context):
     chat_data = context.chat_data
     msg = str(chat_data['second'])+" Value:"
@@ -149,7 +142,6 @@ def cb_second_to_first(update, context):
     context.bot.send_message(update.callback_query.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
     return SECOND
 
-@run_async
 def cb_get_value(update, context):
     chat_data = context.chat_data
     chat_data['value'] = update.message.text
