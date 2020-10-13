@@ -33,7 +33,6 @@ TelegramBOT Based on CoinbasePro API
         ```
 
     2. Use Docker (recommended)
-<<<<<<< HEAD
         
         1. Install docker and then:
     
@@ -47,11 +46,3 @@ TelegramBOT Based on CoinbasePro API
 			docker-compose up -d
 			```
 
-=======
-        Install docker and then:
-
-        ```bash
-        docker build -t cryptobot .
-        docker run -dit --restart unless-stopped --name cryptobot_telegram cryptobot
-        ```
->>>>>>> 4ec4c8a3d5179711246f43b617a189fca4e096af
