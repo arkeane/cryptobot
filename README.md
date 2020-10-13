@@ -3,9 +3,9 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LZDKH4PL5Z3XN&source=url)
 
 Get crypto prices, set reminders and much more...
-Based on CoinbasePro API
+TelegramBOT Based on CoinbasePro API
 
-### Use it at https://t.me/lcrypto_bot or @lcrypto_bot
+## Use it at [BOT](https://t.me/lcrypto_bot) or @lcrypto_bot
 
 ## Run the bot yourself
 
@@ -23,7 +23,7 @@ Based on CoinbasePro API
     echo "TOKEN" > bot_token.txt
     ````
 
-3.  Run the Bot (Two ways):
+3. Run the Bot (Two ways):
 
     1. Install the required software and run the bot
 
@@ -31,7 +31,9 @@ Based on CoinbasePro API
         pip install -r requirements.txt
         python bot.py
         ```
+
     2. Use Docker (recommended)
+<<<<<<< HEAD
         
         1. Install docker and then:
     
@@ -45,3 +47,11 @@ Based on CoinbasePro API
 			docker-compose up -d
 			```
 
+=======
+        Install docker and then:
+
+        ```bash
+        docker build -t cryptobot .
+        docker run -dit --restart unless-stopped --name cryptobot_telegram cryptobot
+        ```
+>>>>>>> 4ec4c8a3d5179711246f43b617a189fca4e096af

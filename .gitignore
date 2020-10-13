@@ -1,2 +1,9 @@
+<<<<<<< HEAD
 ./src/__pycache__/
 ./src/bot_token.txt
+=======
+__pycache__/
+.venv/
+bot_token.txt
+cryptovscode.code-workspace
+>>>>>>> 4ec4c8a3d5179711246f43b617a189fca4e096af
