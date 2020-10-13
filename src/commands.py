@@ -5,7 +5,7 @@ import utils
 from bot import FIRST, SECOND
 import json
 
-with open('text.json') as json_file:
+with open('/src/text.json') as json_file:
         texts = json.loads(json_file.read())
         for p in texts['text']:
             help_text = (p['help_text'])
@@ -27,21 +27,21 @@ def cmd_help(update, context):
         context.bot.send_message(update.message.chat_id, text=help_text, parse_mode=telegram.ParseMode.MARKDOWN)
         return
     elif context.args[0] == "price":
-        with open('text.json') as json_file:
+        with open('/src/text.json') as json_file:
             data = json.loads(json_file.read())
             for p in data['help']:
                 msg = p['/price']
             context.bot.send_message(update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
             return
     elif context.args[0] == "alertme":
-       with open('text.json') as json_file:
+       with open('/src/text.json') as json_file:
            data = json.loads(json_file.read())
            for p in data['help']:
                msg = p['/alertme']
            context.bot.send_message(update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
            return
     elif context.args[0] == "convert":
-       with open('text.json') as json_file:
+       with open('src/text.json') as json_file:
            data = json.loads(json_file.read())
            for p in data['help']:
                msg = p['/convert']

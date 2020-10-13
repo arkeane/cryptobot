@@ -9,6 +9,6 @@ services:
         name: cryptobot
     container_name: cryptobot
     volumes:
-	  - ./src:./
+      - './src:/src'
     image: cryptobot:latest
     restart: unless-stopped
