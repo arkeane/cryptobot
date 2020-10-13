@@ -13,7 +13,7 @@ if __name__ == '__main__':
     updater = Updater(TOKEN, use_context=True)
     dispatcher = updater.dispatcher
     logging.basicConfig(
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
     # Commands
     dispatcher.add_handler(CommandHandler('start', commands.cmd_start))
@@ -40,3 +40,4 @@ if __name__ == '__main__':
 
     # Start polling
     updater.start_polling()
+	update.idle()
