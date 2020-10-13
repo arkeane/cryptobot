@@ -1,2 +1,2 @@
-./src/__pycache__/
-./src/bot_token.txt
+src/__pycache__/
+src/bot_token.txt
