@@ -1,0 +1,12 @@
+version: "3"
+services:
+  cryptobot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        buildno: 1
+        name: cryptobot
+    container_name: cryptobot
+    image: cryptobot:latest
+    restart: unless-stopped

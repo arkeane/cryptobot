@@ -33,9 +33,15 @@ Based on CoinbasePro API
         ```
     2. Use Docker (recommended)
         
-        Install docker and then:
+        1. Install docker and then:
     
-        ```bash
-        docker build -t cryptobot .
-        docker run -dit --restart unless-stopped --name cryptobot_telegram cryptobot
-        ```
+        	```bash
+        	docker build -t cryptobot .
+        	docker run -dit --restart unless-stopped --name cryptobot_telegram cryptobot
+        	```
+
+		2. Use docker-compose
+			```bash
+			docker-compose up -d
+			```
+

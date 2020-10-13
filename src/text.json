@@ -1,0 +1,16 @@
+{
+    "text": [
+        {
+            "botfather_list": "\nbtcprice - BTC-EUR price\nethprice - ETH-EUR price\nprice - get price\nconvert - convert value\nalertme - set a reminder\nhelp - get help for commands\n",
+            "welcome_text": "\n\u20bf WELCOME TO CRYPTOBOT \u20bf\n\nCommands:\n/btcprice - BTC-EUR price\n/ethprice - ETH-EUR price\n/price - ex. /price BTC-USD\n/convert - ex /convert BTC EUR\n/alertme - ex. /alertme BTC-EUR > 8300\n/help - ex. /help alertme\n\nBOT developed by Ludovico Pestarino \u00a9",
+            "help_text": "\nHELP:\n /btcprice - BTC-EUR price\n /ethprice - ETH-EUR price\n /price - ex. /price BTC-USD\n /convert - ex /convert BTC EUR\n /alertme - ex. /alertme BTC-EUR > 8300\n /help - ex. /help alertme"
+        }
+    ],
+    "help": [
+        {
+            "/price": "\n/price Help:\n\nTo use /price just text the command followed by whatever ticker you want\n\nex. /price BTC-USD\n",
+            "/alertme": "\n/alertme Help:\n\nTo use /alertme just text the command followed by whatever ticker you want, then you can set greater than [>] or less than [<] price\n\nex. /alertme BTC-EUR > 8300 (will result in a reminder for bitcoin price reaching a value over 8300\u20ac)\n",
+            "/convert": "\n/alertme Help:\n\nTo use /convert just text the command followed by two arguments one for each currency in capital letter (follow coinbase tickers when inserting) then you'll be prompted to select a direction and then your value\n\nex. /convert BTC EUR (will result in a conversion from BTC to EUR or from EUR to BTC)\n"
+        }
+    ]
+}
