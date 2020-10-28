@@ -20,6 +20,7 @@ if __name__ == '__main__':
     dispatcher.add_handler(CommandHandler('help', commands.cmd_help))
     dispatcher.add_handler(CommandHandler('btcprice', commands.cmd_btcprice))
     dispatcher.add_handler(CommandHandler('ethprice', commands.cmd_ethprice))
+    dispatcher.add_handler(CommandHandler('txinfo', commands.cmd_transactinfo))
     dispatcher.add_handler(CommandHandler(
         'price', commands.cmd_price, pass_args=True, pass_chat_data=True))
     dispatcher.add_handler(CommandHandler(

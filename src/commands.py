@@ -8,7 +8,7 @@ import os
 
 textjson = (os.path.dirname(os.path.realpath(__file__)) + '/text.json')
 
-with open('/src/text.json') as json_file:
+with open(textjson) as json_file:
         texts = json.loads(json_file.read())
         for p in texts['text']:
             help_text = (p['help_text'])
@@ -46,6 +46,13 @@ def cmd_help(update, context):
            data = json.loads(json_file.read())
            for p in data['help']:
                msg = p['/convert']
+           context.bot.send_message(update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
+           return
+    elif context.args[0] == "txinfo":
+       with open(textjson) as json_file:
+           data = json.loads(json_file.read())
+           for p in data['help']:
+               msg = p['/txinfo']
            context.bot.send_message(update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
            return
     else:
@@ -94,6 +101,22 @@ def cmd_alertme(update, context):
     chat_data['direction'] = context.args[1] 
     chat_data['alertvalue'] = context.args[2]
     utils.reminderth(chat_data['tick'], chat_data['direction'], chat_data['alertvalue'], context.bot, update, context)
+    return
+
+def cmd_transactinfo(update, context):
+    chat_data = context.chat_data
+    
+    if len(context.args) != 1:
+        error_args_transactinfo(context.bot, update)
+        return
+    
+    chat_data['hash'] = context.args[0]
+    context.bot.send_chat_action(chat_id=update.message.chat_id, action=telegram.ChatAction.TYPING)
+    info = utils.get_transactioninfo(chat_data['hash'])
+    data = info.json()
+    status = data['confirmed']
+    msg = 'CONFIRMED: '+ str(status)
+    context.bot.send_message(update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
     return
 
 def cmd_convert(update, context):
@@ -185,5 +208,11 @@ def error_args_convert(bot, update):
 def error_args_help(bot, update):
     bot.sendMessage(chat_id = update.message.chat_id, 
     text = ("ERROR: Incorrect argument -- try: /help price "),
+    parse_mode = telegram.ParseMode.MARKDOWN)
+    return
+
+def error_args_transactinfo(bot, update):
+    bot.sendMessage(chat_id = update.message.chat_id, 
+    text = ("ERROR: Incorrect argument -- try: /txinfo hash "),
     parse_mode = telegram.ParseMode.MARKDOWN)
     return

@@ -3,6 +3,7 @@ import time
 import threading
 import commands
 import telegram
+import requests
 
 def get_price(tick):
     public_client = cbp.PublicClient()
@@ -58,3 +59,7 @@ def value_conversion(update, context):
     tick = str(chat_data['first'])+"-"+str(chat_data['second'])
     value = chat_data['value']
     return
+
+def get_transactioninfo(hash):
+    info = requests.get('https://mempool.space/api/tx/'+ hash +'/status')
+    return info
