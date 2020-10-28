@@ -116,10 +116,10 @@ def cmd_transactinfo(update, context):
     data = info.json()
     status = data['confirmed']
     
-    if status != False:
-        msg = 'CONFIRMED'
-    else:
+    if status == False:
         msg = 'NOT CONFIRMED'
+    else:
+        msg = 'CONFIRMED'
     
     context.bot.send_message(update.message.chat_id, text=msg, parse_mode=telegram.ParseMode.MARKDOWN)
     return
